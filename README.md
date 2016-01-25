@@ -1,0 +1,2 @@
+# localArea
+The LocalArea software is intended to have a specific scope, it’s a social media, but focused only on the places people are sharing or talking about, it’s not intended to care about other social aspects (like mood, etc.), the places included are also dependent on the users, initially a database with some places are available for users to use. This document provides the main information about the requirements mentioned later.
