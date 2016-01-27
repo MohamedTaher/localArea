@@ -1,0 +1,383 @@
+/*==============================================================*/
+/* Table: BRANDMODEL                                            */
+/*==============================================================*/
+create table BRANDMODEL 
+(
+   BRAND_ID             integer                        not null,
+   USER_ID              integer                        not null,
+   BRAND_NAME           varchar(15)                    not null,
+   BRAND_DESCRIPTION    long varchar                   not null,
+   constraint PK_BRANDMODEL primary key (BRAND_ID)
+);
+
+/*==============================================================*/
+/* Table: BRANDTASTE                                            */
+/*==============================================================*/
+create table BRANDTASTE 
+(
+   TASTE_ID             integer                        not null,
+   BRAND_ID             integer                        not null,
+   constraint PK_BRANDTASTE primary key clustered (TASTE_ID, BRAND_ID)
+);
+
+/*==============================================================*/
+/* Table: CHECKINMODEL                                          */
+/*==============================================================*/
+create table CHECKINMODEL 
+(
+   CHECKIN_ID           integer                        not null,
+   USER_ID              integer                        null,
+   PLACE_ID             integer                        null,
+   LIKE_MODELID         integer                        null,
+   CHECKIN_COMMENT      varchar(150)                   null,
+   constraint PK_CHECKINMODEL primary key (CHECKIN_ID)
+);
+
+/*==============================================================*/
+/* Table: CONTAINMSGS                                           */
+/*==============================================================*/
+create table CONTAINMSGS 
+(
+   MSG_ID               integer                        not null,
+   CONVERSATION_ID      integer                        not null,
+   constraint PK_CONTAINMSGS primary key clustered (MSG_ID, CONVERSATION_ID)
+);
+
+/*==============================================================*/
+/* Table: CONVERSATIONMODEL                                     */
+/*==============================================================*/
+create table CONVERSATIONMODEL 
+(
+   CONVERSATION_ID      integer                        not null,
+   CONVERSATION_NAME    varchar(15)                    not null,
+   constraint PK_CONVERSATIONMODEL primary key (CONVERSATION_ID)
+);
+
+/*==============================================================*/
+/* Table: FOLLOWBRAND                                           */
+/*==============================================================*/
+create table FOLLOWBRAND 
+(
+   USER_ID              integer                        not null,
+   BRAND_ID             integer                        not null,
+   constraint PK_FOLLOWBRAND primary key clustered (USER_ID, BRAND_ID)
+);
+
+/*==============================================================*/
+/* Table: FRIENDREQUESTMODEL                                    */
+/*==============================================================*/
+create table FRIENDREQUESTMODEL 
+(
+   REQUEST_ID           integer                        not null,
+   NOTIFICATION_ID      integer                        null,
+   FIRST_ACCEPTED       smallint                       not null,
+   SECOND_ACCEPTED      smallint                       not null,
+   constraint PK_FRIENDREQUESTMODEL primary key (REQUEST_ID)
+);
+
+/*==============================================================*/
+/* Table: HASCOV                                                */
+/*==============================================================*/
+create table HASCOV 
+(
+   USER_ID              integer                        not null,
+   CONVERSATION_ID      integer                        not null,
+   constraint PK_HASCOV primary key clustered (USER_ID, CONVERSATION_ID)
+);
+
+/*==============================================================*/
+/* Table: LIKEMODEL                                             */
+/*==============================================================*/
+create table LIKEMODEL 
+(
+   NOTIFICATION_ID      integer                        null,
+   USER_ID              integer                        null,
+   CHECKIN_ID           integer                        null,
+   LIKE_MODELID         integer                        not null,
+   constraint PK_LIKEMODEL primary key clustered (LIKE_MODELID)
+);
+
+/*==============================================================*/
+/* Table: MESSAGEMODEL                                          */
+/*==============================================================*/
+create table MESSAGEMODEL 
+(
+   MSG_ID               integer                        not null,
+   NOTIFICATION_ID      integer                        null,
+   USER_ID              integer                        null,
+   MSG_TXT              varchar(150)                   not null,
+   MSG_DATE             timestamp                      not null,
+   constraint PK_MESSAGEMODEL primary key (MSG_ID)
+);
+
+/*==============================================================*/
+/* Table: NOTIFICATIONMODEL                                     */
+/*==============================================================*/
+create table NOTIFICATIONMODEL 
+(
+   NOTIFICATION_ID      integer                        not null,
+   MSG_ID               integer                        null,
+   REQUEST_ID           integer                        null,
+   USER_ID              integer                        not null,
+   LIKE_MODELID         integer                        null,
+   NOTIFICATION_TYPE    integer                        not null,
+   constraint PK_NOTIFICATIONMODEL primary key (NOTIFICATION_ID)
+);
+
+/*==============================================================*/
+/* Table: PLACEMODEL                                            */
+/*==============================================================*/
+create table PLACEMODEL 
+(
+   PLACE_NAME           varchar(20)                    not null,
+   PLACE_DESCRIPTION    long varchar                   null,
+   PLACE_ID             integer                        not null,
+   CHECKIN_ID           integer                        not null,
+   USER_ID              integer                        not null,
+   PLACE_RATE           smallint                       not null,
+   PLACE_NOCHECKINS     integer                        not null,
+   constraint PK_PLACEMODEL primary key (PLACE_ID)
+);
+
+/*==============================================================*/
+/* Table: PLACETASTE                                            */
+/*==============================================================*/
+create table PLACETASTE 
+(
+   PLACE_ID             integer                        not null,
+   TASTE_ID             integer                        not null,
+   constraint PK_PLACETASTE primary key clustered (PLACE_ID, TASTE_ID)
+);
+
+/*==============================================================*/
+/* Table: RELATIONSHIP_3                                        */
+/*==============================================================*/
+create table RELATIONSHIP_3 
+(
+   USER_ID              integer                        not null,
+   REQUEST_ID           integer                        not null,
+   constraint PK_RELATIONSHIP_3 primary key clustered (USER_ID, REQUEST_ID)
+);
+
+/*==============================================================*/
+/* Table: TASTEMODEL                                            */
+/*==============================================================*/
+create table TASTEMODEL 
+(
+   TASTE_ID             integer                        not null,
+   USER_ID              integer                        not null,
+   TASTE_NAME           varchar(15)                    not null,
+   constraint PK_TASTEMODEL primary key (TASTE_ID)
+);
+
+/*==============================================================*/
+/* Table: TIP                                                   */
+/*==============================================================*/
+create table TIP 
+(
+   TIP_ID               integer                        not null,
+   PLACE_ID             integer                        not null,
+   BRAND_ID             integer                        not null,
+   TIP_NAME             varchar(15)                    not null,
+   constraint PK_TIP primary key (TIP_ID)
+);
+
+/*==============================================================*/
+/* Table: USERMODEL                                             */
+/*==============================================================*/
+create table USERMODEL 
+(
+   USER_ID              integer                        not null,
+   USER_NAME            varchar(15)                    not null,
+   USER_PASSWORD        varchar(15)                    not null,
+   USER_EMAIL           varchar(40)                    not null,
+   USER_TYPE            char(1)                        not null,
+   constraint PK_USERMODEL primary key (USER_ID)
+);
+
+alter table BRANDMODEL
+   add constraint FK_BRANDMOD_HASBRAND_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table BRANDTASTE
+   add constraint FK_BRANDTAS_BRANDTAST_TASTEMOD foreign key (TASTE_ID)
+      references TASTEMODEL (TASTE_ID)
+      on update restrict
+      on delete restrict;
+
+alter table BRANDTASTE
+   add constraint FK_BRANDTAS_BRANDTAST_BRANDMOD foreign key (BRAND_ID)
+      references BRANDMODEL (BRAND_ID)
+      on update restrict
+      on delete restrict;
+
+alter table CHECKINMODEL
+   add constraint FK_CHECKINM_CHECKINON_PLACEMOD foreign key (PLACE_ID)
+      references PLACEMODEL (PLACE_ID)
+      on update restrict
+      on delete restrict;
+
+alter table CHECKINMODEL
+   add constraint FK_CHECKINM_LIKESTHIS_LIKEMODE foreign key (LIKE_MODELID)
+      references LIKEMODEL (LIKE_MODELID)
+      on update restrict
+      on delete restrict;
+
+alter table CHECKINMODEL
+   add constraint FK_CHECKINM_USER_MAKE_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table CONTAINMSGS
+   add constraint FK_CONTAINM_CONTAINMS_MESSAGEM foreign key (MSG_ID)
+      references MESSAGEMODEL (MSG_ID)
+      on update restrict
+      on delete restrict;
+
+alter table CONTAINMSGS
+   add constraint FK_CONTAINM_CONTAINMS_CONVERSA foreign key (CONVERSATION_ID)
+      references CONVERSATIONMODEL (CONVERSATION_ID)
+      on update restrict
+      on delete restrict;
+
+alter table FOLLOWBRAND
+   add constraint FK_FOLLOWBR_FOLLOWBRA_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table FOLLOWBRAND
+   add constraint FK_FOLLOWBR_FOLLOWBRA_BRANDMOD foreign key (BRAND_ID)
+      references BRANDMODEL (BRAND_ID)
+      on update restrict
+      on delete restrict;
+
+alter table FRIENDREQUESTMODEL
+   add constraint FK_FRIENDRE_FRNDREQ_T_NOTIFICA foreign key (NOTIFICATION_ID)
+      references NOTIFICATIONMODEL (NOTIFICATION_ID)
+      on update restrict
+      on delete restrict;
+
+alter table HASCOV
+   add constraint FK_HASCOV_HASCOV_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table HASCOV
+   add constraint FK_HASCOV_HASCOV2_CONVERSA foreign key (CONVERSATION_ID)
+      references CONVERSATIONMODEL (CONVERSATION_ID)
+      on update restrict
+      on delete restrict;
+
+alter table LIKEMODEL
+   add constraint FK_LIKEMODE_LIKES_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table LIKEMODEL
+   add constraint FK_LIKEMODE_LIKESTHIS_CHECKINM foreign key (CHECKIN_ID)
+      references CHECKINMODEL (CHECKIN_ID)
+      on update restrict
+      on delete restrict;
+
+alter table LIKEMODEL
+   add constraint FK_LIKEMODE_LIKE_TYPE_NOTIFICA foreign key (NOTIFICATION_ID)
+      references NOTIFICATIONMODEL (NOTIFICATION_ID)
+      on update restrict
+      on delete restrict;
+
+alter table MESSAGEMODEL
+   add constraint FK_MESSAGEM_MSG_TYPE2_NOTIFICA foreign key (NOTIFICATION_ID)
+      references NOTIFICATIONMODEL (NOTIFICATION_ID)
+      on update restrict
+      on delete restrict;
+
+alter table MESSAGEMODEL
+   add constraint FK_MESSAGEM_RELATIONS_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table NOTIFICATIONMODEL
+   add constraint FK_NOTIFICA_FRNDREQ_T_FRIENDRE foreign key (REQUEST_ID)
+      references FRIENDREQUESTMODEL (REQUEST_ID)
+      on update restrict
+      on delete restrict;
+
+alter table NOTIFICATIONMODEL
+   add constraint FK_NOTIFICA_HASNOTIFI_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table NOTIFICATIONMODEL
+   add constraint FK_NOTIFICA_LIKE_TYPE_LIKEMODE foreign key (LIKE_MODELID)
+      references LIKEMODEL (LIKE_MODELID)
+      on update restrict
+      on delete restrict;
+
+alter table NOTIFICATIONMODEL
+   add constraint FK_NOTIFICA_MSG_TYPE_MESSAGEM foreign key (MSG_ID)
+      references MESSAGEMODEL (MSG_ID)
+      on update restrict
+      on delete restrict;
+
+alter table PLACEMODEL
+   add constraint FK_PLACEMOD_CHECKINON_CHECKINM foreign key (CHECKIN_ID)
+      references CHECKINMODEL (CHECKIN_ID)
+      on update restrict
+      on delete restrict;
+
+alter table PLACEMODEL
+   add constraint FK_PLACEMOD_HASPLACE_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table PLACETASTE
+   add constraint FK_PLACETAS_PLACETAST_PLACEMOD foreign key (PLACE_ID)
+      references PLACEMODEL (PLACE_ID)
+      on update restrict
+      on delete restrict;
+
+alter table PLACETASTE
+   add constraint FK_PLACETAS_PLACETAST_TASTEMOD foreign key (TASTE_ID)
+      references TASTEMODEL (TASTE_ID)
+      on update restrict
+      on delete restrict;
+
+alter table RELATIONSHIP_3
+   add constraint FK_RELATION_RELATIONS_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table RELATIONSHIP_3
+   add constraint FK_RELATION_RELATIONS_FRIENDRE foreign key (REQUEST_ID)
+      references FRIENDREQUESTMODEL (REQUEST_ID)
+      on update restrict
+      on delete restrict;
+
+alter table TASTEMODEL
+   add constraint FK_TASTEMOD_USERTASTE_USERMODE foreign key (USER_ID)
+      references USERMODEL (USER_ID)
+      on update restrict
+      on delete restrict;
+
+alter table TIP
+   add constraint FK_TIP_BRANDHAST_BRANDMOD foreign key (BRAND_ID)
+      references BRANDMODEL (BRAND_ID)
+      on update restrict
+      on delete restrict;
+
+alter table TIP
+   add constraint FK_TIP_TIPONPLAC_PLACEMOD foreign key (PLACE_ID)
+      references PLACEMODEL (PLACE_ID)
+      on update restrict
+      on delete restrict;
+
