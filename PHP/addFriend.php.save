@@ -1,0 +1,17 @@
+<?php 
+$con = mysqli_connect("localhost","root","20130204","localArea");
+if (!$con)
+{
+ echo('Could not connect: ' . mysqli_error());
+}
+else
+{
+   //Input is 'source_id' and 'destination_id' and the output is nothing, just makes a request in the database where FIRST_ACCEPTED = 1 and  SECOND_ACCEPTED = 0
+ $source_id = '5';
+ $destination_id = '6';
+ $sql = "insert into FRIENDREQUESTMODEL(FIRST_ACCEPTED, SECOND_ACCEPTED, SOURCEDESTINATION) values(1, 0, '$source_id', '$destination_id')";
+ mysqli_query($con, $sql);
+}
+
+?>
+
