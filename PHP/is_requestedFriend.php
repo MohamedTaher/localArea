@@ -7,10 +7,10 @@ if (!$con)
 else
 {
    
- $first = $_POST['first_user'];
- $second = $_POST['second_user'];
+ $first = $_POST['second_user'];
+ $second = $_POST['first_user'];
  
- $sql = "select * from FRIENDREQUESTMODEL where ((REQUEST_ID=$first and NOTIFICATION_ID=$second) and   FIRST_ACCEPTED=0 and SECOND_ACCEPTED=1);";
+ $sql = "select * from FRIENDREQUESTMODEL where ((REQUEST_ID=$first and NOTIFICATION_ID=$second) and   FIRST_ACCEPTED=1 and SECOND_ACCEPTED=0);";
  $result = mysqli_query($con, $sql);
  $result = $result->num_rows;
  if($result == 0) {

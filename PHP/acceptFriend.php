@@ -8,8 +8,9 @@ else
 {
  //set the SECOND_ACCEPT field to 1 in the relation between source_id and destination_id
  
- $source = $_POST['destination_id'];
- $destination = $_POST['source_id'];
+ $source = $_POST['first_user'];
+ $destination = $_POST['second_user'];
+
  $sql = "update FRIENDREQUESTMODEL set SECOND_ACCEPTED=1 where NOTIFICATION_ID='$source' AND REQUEST_ID	='$destination';";
 
   if (mysqli_query($con,$sql))

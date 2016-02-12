@@ -211,6 +211,41 @@ public class Background extends AsyncTask<String, Void, String> {
             }
         } else if (method.equals("isFriend")) {
 
+            try{
+                String first_user = (String)params[1];
+                String second_user = (String)params[2];
+
+                String link=isFriend_url;
+                String data  = URLEncoder.encode("first_user", "UTF-8") + "=" + URLEncoder.encode(first_user, "UTF-8");
+                data += "&" + URLEncoder.encode("second_user", "UTF-8") + "=" + URLEncoder.encode(second_user, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+/*
             String src = params[1];
             String des = params[2];
             try {
@@ -241,10 +276,44 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         } else if (method.equals("isAddFriend")) {
 
+            try{
+                String first_user = (String)params[1];
+                String second_user = (String)params[2];
+
+                String link=isAddFriend_url;
+                String data  = URLEncoder.encode("first_user", "UTF-8") + "=" + URLEncoder.encode(first_user, "UTF-8");
+                data += "&" + URLEncoder.encode("second_user", "UTF-8") + "=" + URLEncoder.encode(second_user, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+/*
             String src = params[1];
             String des = params[2];
             try {
@@ -275,9 +344,45 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         } else if (method.equals("isRequestedFriend")) {
+
+            try{
+                String first_user = (String)params[1];
+                String second_user = (String)params[2];
+
+                String link=isRequestedFriend_url;
+                String data  = URLEncoder.encode("first_user", "UTF-8") + "=" + URLEncoder.encode(first_user, "UTF-8");
+                data += "&" + URLEncoder.encode("second_user", "UTF-8") + "=" + URLEncoder.encode(second_user, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+            /*
             String src = params[1];
             String des = params[2];
             try {
@@ -308,11 +413,47 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         } else if (method.equals("addFriend")) {
 
+            try{
+                String first_user = (String)params[1];
+                String second_user = (String)params[2];
+
+                String link=addFriend_url;
+                String data  = URLEncoder.encode("first_user", "UTF-8") + "=" + URLEncoder.encode(first_user, "UTF-8");
+                data += "&" + URLEncoder.encode("second_user", "UTF-8") + "=" + URLEncoder.encode(second_user, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+/*
             String src = params[1];
             String des = params[2];
+
             try {
                 // open a connection to the site
                 URL url = new URL(addFriend_url);
@@ -321,8 +462,8 @@ public class Background extends AsyncTask<String, Void, String> {
                 con.setDoOutput(true);
                 PrintStream ps = new PrintStream(con.getOutputStream());
                 // send your parameters to your site
-                ps.print("source_id=" + src);
-                ps.print("destination_id=" + des);
+                ps.print("first_user=" + src);
+                ps.print("second_user=" + des);
                 // we have to get the input stream in order to actually send the
                 // request
                 BufferedReader input = new BufferedReader(
@@ -341,9 +482,76 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        } else if (method.equals("acceptFriend")) {
+            }*/
+/*
             String src = params[1];
+            String des = params[2];
+            try {
+                // open a connection to the site
+                URL url = new URL(addFriend_url);
+                URLConnection con = url.openConnection();
+                // activate the output
+                con.setDoOutput(true);
+                PrintStream ps = new PrintStream(con.getOutputStream());
+                // send your parameters to your site
+                ps.print("source_id=" + src);
+                ps.print("des_id=" + des);
+                // we have to get the input stream in order to actually send the
+                // request
+                BufferedReader input = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String line = "", res = "";
+                while ((line = input.readLine()) != null) {
+                    res += line;
+                }
+                // close the print stream
+                ps.close();
+
+                // id = "" + res;
+                result = res + "";
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+        } else if (method.equals("acceptFriend")) {
+
+            try{
+                String first_user = (String)params[1];
+                String second_user = (String)params[2];
+
+                String link=acceptFriend_url;
+                String data  = URLEncoder.encode("first_user", "UTF-8") + "=" + URLEncoder.encode(first_user, "UTF-8");
+                data += "&" + URLEncoder.encode("second_user", "UTF-8") + "=" + URLEncoder.encode(second_user, "UTF-8");
+
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+
+                wr.write( data );
+                wr.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+
+                // Read Server Response
+                while((line = reader.readLine()) != null)
+                {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e){
+                return new String("Exception: " + e.getMessage());
+            }
+
+            /*String src = params[1];
             String des = params[2];
             try {
                 // open a connection to the site
@@ -373,7 +581,7 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
 

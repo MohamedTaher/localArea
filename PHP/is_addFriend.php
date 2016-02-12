@@ -9,6 +9,7 @@ else
    
  $first = $_POST['first_user'];
  $second = $_POST['second_user'];
+
  
  $sql = "select * from FRIENDREQUESTMODEL where ((REQUEST_ID=$first and NOTIFICATION_ID=$second) and   FIRST_ACCEPTED=1 and SECOND_ACCEPTED=0);";
  $result = mysqli_query($con, $sql);

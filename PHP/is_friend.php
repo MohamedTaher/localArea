@@ -8,13 +8,8 @@ else
 {
  $first = $_POST['first_user'];
  $second = $_POST['second_user'];
-
- $first = 5;
- $second = 6;
-
-
  
- $sql = "select * from FRIENDREQUESTMODEL where ( ((REQUEST_ID=$first and NOTIFICATION_ID=$second)or(REQUEST_ID=$second and NOTIFICATION_ID=$first)) and   FIRST_ACCEPTED=1 and SECOND_ACCEPTED=1);";
+ $sql = "select * from FRIENDREQUESTMODEL where ( ((REQUEST_ID='$first' and NOTIFICATION_ID='$second') or (REQUEST_ID='$second' and NOTIFICATION_ID='$first')) and   FIRST_ACCEPTED=1 and SECOND_ACCEPTED=1);";
  $result = mysqli_query($con, $sql);
  $result = $result->num_rows;
  if($result == 0) {
