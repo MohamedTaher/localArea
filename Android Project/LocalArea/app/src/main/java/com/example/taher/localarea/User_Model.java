@@ -54,8 +54,23 @@ public class User_Model {
 
     public void setUserDataByUsername(String username, Context ctx)
     {
-        String method = "searchByUsername";
+//        String method = "searchByUsername";
 
+        //THIS IS NOT IMPORTANT AND SHALL BE DELETED!!
+//        String method = "searchName";
+//        Background process = new Background(ctx);
+//        process.doInBackground(method, username);
+//        process.execute();
+//        try {
+//            process.get();
+//        } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        String[] fields = process.result.split("-");
     }
 
     public String getEmail() {
