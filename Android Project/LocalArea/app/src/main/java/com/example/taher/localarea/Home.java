@@ -141,7 +141,10 @@ public class Home extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_single) {
-
+            //Taher please combine this else statement with the one that follows and choose a good namd :D
+            testfrag messageFragment = new testfrag();
+            messageFragment.setUserModel(user);
+            replaceFragment("Messages", messageFragment);
         } else if (id == R.id.nav_group) {
 
         } else if (id == R.id.nav_logout) {

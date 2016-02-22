@@ -13,6 +13,10 @@ public class User_Model {
     private String username;
     private String email;
 
+    public User_Model() {
+        super();
+    }
+
     public User_Model(String id, String username, String email) {
         this.id = id;
         this.email = email;

@@ -35,6 +35,7 @@ public class Background extends AsyncTask<String, Void, String> {
     private String isRequestedFriend_url = "http://"+ip_address+"/is_requestedFriend.php";
     private String addFriend_url = "http://"+ip_address+"/addFriend.php";
     private String acceptFriend_url = "http://"+ip_address+"/acceptFriend.php";
+    private String getMessageThreadsForUser_url = "http://"+ip_address+"/getMessageThreadsForUser.php";
 
 
     public Background(Context ctx) {
@@ -583,6 +584,55 @@ public class Background extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }*/
 
+        } else if (method == "getMessageThreadsForUser") {
+            //get from database the messages that contains this user id in the thread names
+            String uID = params[1];
+            //1.call the retrieve threads php file and get the response
+            //  L> The message format is this [No.Threads]/[No.IDs]/[ID1, ID2, ...]/[No.Msgs]/[Lngth]/[Msg]
+            //2.loop on the threads and for each thread replace the ID with the name of the user
+            //3.return the result ^_^
+
+            try{
+                String link= getMessageThreadsForUser_url;
+                String mode = "id";
+                String data  = URLEncoder.encode("uid", "UTF-8") + "=" + URLEncoder.encode(params[1], "UTF-8");
+                data += "&" + URLEncoder.encode("mode", "UTF-8") + "=" + URLEncoder.encode(mode, "UTF-8");
+                URL url = new URL(link);
+                URLConnection conn = url.openConnection();
+                conn.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+                wr.write( data );
+                wr.flush();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while((line = reader.readLine()) != null) {
+                    sb.append(line);
+                    break;
+                }
+                result =  sb.toString();
+            }
+            catch(Exception e) {
+                return new String("Exception: " + e.getMessage());
+            }
+//            try {
+//                URL url = new URL(getMessageThreadsForUser_url);
+//                URLConnection con = url.openConnection();
+//                con.setDoOutput(true);
+//                PrintStream ps = new PrintStream(con.getOutputStream());
+//                ps.print("uid=" + uID);
+//                ps.print("&mode=id");
+//                BufferedReader input = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//                String line = "", res = "";
+//                while ((line = input.readLine()) != null) {
+//                    res += line;
+//                }
+//                ps.close();
+//                return res;
+//            }
+//            catch(Exception e){
+//                return new String("Exception: " + e.getMessage());
+//            }
         }
 
         return "-1";
